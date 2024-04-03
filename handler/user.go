@@ -1,9 +1,9 @@
 package handler
 
-type UserHandler struct {
-	
-}
+import "github.com/labstack/echo/v4"
 
-func (h UserHandler) HandleUserShow (c echo.context) error {
+type UserHandler struct{}
+
+func (h UserHandler) HandleUserShow(c echo.Context) error {
 	return nil
 }

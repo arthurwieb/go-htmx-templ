@@ -1,16 +1,19 @@
 package main
 
-
 import (
-	"fmt"
-	//"github.com/labstack/echo/v4"
+	"github.com/arthurwieb/got/handler"
+	"github.com/labstack/echo/v4"
+	// https://echo.labstack.com/
 )
 
-//https://echo.labstack.com/
+type DB struct{}
+
 func main() {
-	fmt.Println("Hello, World!")
-	/*app := echo.new()
-	app.GET
-	app.Start(":3000")*/
-	
+	// fmt.Println("Hello, World!")
+	app := echo.New()
+	userHandler := handler.UserHandler{}
+	app.GET("/user", userHandler.HandleUserShow)
+
+	app.Start(":3000")
+
 }
