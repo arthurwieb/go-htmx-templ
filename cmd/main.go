@@ -1,19 +1,28 @@
 package main
 
 import (
+	"context"
+
 	"github.com/arthurwieb/got/handler"
 	"github.com/labstack/echo/v4"
-	// https://echo.labstack.com/
 )
 
 type DB struct{}
 
 func main() {
-	// fmt.Println("Hello, World!")
 	app := echo.New()
+
 	userHandler := handler.UserHandler{}
+	app.Use(withUser)
 	app.GET("/user", userHandler.HandleUserShow)
 
 	app.Start(":3000")
+}
 
+func withUser(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		ctx := context.WithValue(c.Request().Context(), "user", "arthur@me.com")
+		c.SetRequest(c.Request().WithContext(ctx))
+		return next(c)
+	}
 }
